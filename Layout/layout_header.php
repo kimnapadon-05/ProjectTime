@@ -98,7 +98,37 @@
         }
     </style>
     <script>
-        window.PROJECT_ROOT = '<?php echo rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), "/"); ?>';
+        (function(){
+            var computed = '<?php echo rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), "/"); ?>';
+            var candidates = [computed, '', '/residential_system-main'];
+            window.PROJECT_ROOT = candidates[0];
+
+            function testCandidate(i){
+                if(i>=candidates.length){ window.PROJECT_ROOT = computed; return; }
+                var base = candidates[i] || '';
+                var url = (base === '' ? '' : base) + '/backend/auth_handler.php';
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('HEAD', url);
+                    xhr.timeout = 2000;
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState === 4){
+                            // treat non-404 as existing (200,403,500)
+                            if(xhr.status && xhr.status !== 404){
+                                window.PROJECT_ROOT = candidates[i];
+                            } else {
+                                testCandidate(i+1);
+                            }
+                        }
+                    };
+                    xhr.ontimeout = function(){ testCandidate(i+1); };
+                    xhr.onerror = function(){ testCandidate(i+1); };
+                    xhr.send(null);
+                } catch(e){ testCandidate(i+1); }
+            }
+            // run async test after short delay so other scripts can bind if needed
+            setTimeout(function(){ testCandidate(0); }, 10);
+        })();
     </script>
     </head>
     <body>
