@@ -1,5 +1,5 @@
-<?php include '../Layout/layout_header.php'; ?>
-<?php include '../Layout/layout_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_header.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_sidebar.php'; ?>
 
 <h3 class="mt-4 mb-4">Dashboard</h3>
 
@@ -76,6 +76,6 @@
     </div>
 </div>
 
-<?php include '../Layout/layout_footer.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_footer.php'; ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../script/dashboard.js"></script>

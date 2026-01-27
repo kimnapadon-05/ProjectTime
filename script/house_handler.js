@@ -21,7 +21,7 @@ function loadTable(page, search = '') {
     if(search === '') search = $('#searchInput').val(); // กันเหนียวกรณีเปลี่ยนหน้า
 
     $.ajax({
-        url: '../backend/house_handler.php',
+        url: window.PROJECT_ROOT + '/backend/house_handler.php',
         method: 'POST',
         data: { action: 'read', page: page, limit: itemsPerPage, search: search },
         dataType: 'json',
@@ -75,7 +75,7 @@ function renderPagination(paging) {
 }
 
 function loadLocations() {
-    $.post('../backend/house_handler.php', {action:'get_locations'}, function(data){
+    $.post(window.PROJECT_ROOT + '/backend/house_handler.php', {action:'get_locations'}, function(data){
         let opts = '<option value="">-- เลือกโซน --</option>';
         data.forEach(item => {
             opts += `<option value="${item.location_id}">${item.location_name}</option>`;
@@ -90,7 +90,7 @@ function saveHouse() {
         return;
     }
 
-    $.post('../backend/house_handler.php', $('#houseForm').serialize(), function(res){
+    $.post(window.PROJECT_ROOT + '/backend/house_handler.php', $('#houseForm').serialize(), function(res){
         if(res.status === 'success'){
             $('#houseModal').modal('hide');
             Swal.fire('สำเร็จ', res.message, 'success');
@@ -127,7 +127,7 @@ function deleteHouse(id) {
         confirmButtonText: 'ใช่, ลบเลย!'
     }).then((result) => {
         if (result.isConfirmed) {
-            $.post('../backend/house_handler.php', {action:'delete', house_id:id}, function(res){
+            $.post(window.PROJECT_ROOT + '/backend/house_handler.php', {action:'delete', house_id:id}, function(res){
                 if (res.status === 'success') {
                     Swal.fire('ลบสำเร็จ!', res.message, 'success');
                     loadTable(currentPage);

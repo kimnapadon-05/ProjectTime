@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/../backend/auth_guard.php'; ?>
-<?php include '../Layout/layout_header.php'; ?>
-<?php include '../Layout/layout_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_header.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_sidebar.php'; ?>
 
 <div class="card shadow">
     <div class="card-header bg-secondary text-white">
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<?php include '../Layout/layout_footer.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_footer.php'; ?>
 
 <script>
 const thMonthNames = ["", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
@@ -90,7 +90,7 @@ $(document).ready(function(){
 
 // ฟังก์ชันโหลดรายชื่อโซนใส่ Dropdown
 function loadLocations() {
-    $.post('../backend/rate_setting_handler.php', {action: 'get_locations'}, function(data){
+    $.post(window.PROJECT_ROOT + '/backend/rate_setting_handler.php', {action: 'get_locations'}, function(data){
         let opts = '<option value="">-- เลือกโซน --</option>';
         data.forEach(item => {
             opts += `<option value="${item.location_id}">${item.location_name}</option>`;
@@ -100,7 +100,7 @@ function loadLocations() {
 }
 
 function loadRates() {
-    $.post('../backend/rate_setting_handler.php', {action:'read'}, function(data){
+    $.post(window.PROJECT_ROOT + '/backend/rate_setting_handler.php', {action:'read'}, function(data){
         let rows = '';
         if(data.length > 0){
             data.forEach(r => {
@@ -128,7 +128,7 @@ function saveRate() {
         return;
     }
 
-    $.post('../backend/rate_setting_handler.php', $('#rateForm').serialize() + '&action=save', function(res){
+    $.post(window.PROJECT_ROOT + '/backend/rate_setting_handler.php', $('#rateForm').serialize() + '&action=save', function(res){
         if(res.status === 'success'){ 
             Swal.fire('สำเร็จ', res.message, 'success'); 
             loadRates(); 

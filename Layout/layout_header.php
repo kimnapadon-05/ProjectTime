@@ -97,6 +97,9 @@
             padding: 0.8rem 1rem;
         }
     </style>
-</head>
-<body>
+    <script>
+        window.PROJECT_ROOT = '<?php echo rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), "/"); ?>';
+    </script>
+    </head>
+    <body>
     <div id="wrapper">

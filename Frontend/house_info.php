@@ -1,5 +1,5 @@
-<?php include '../Layout/layout_header.php'; ?>
-<?php include '../Layout/layout_sidebar.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_header.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_sidebar.php'; ?>
 
 <div class="card shadow">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -73,5 +73,5 @@
     </div>
 </div>
 
-<?php include '../Layout/layout_footer.php'; ?>
+<?php require_once __DIR__ . '/../Layout/layout_footer.php'; ?>
 <script src="../script/house_handler.js"></script>

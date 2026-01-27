@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/../backend/security_helper.php'; ?>
+<?php $PROJECT_ROOT = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/'); ?>
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -53,7 +54,7 @@
             <button type="submit" class="btn btn-login w-100 py-2">เข้าสู่ระบบ</button>
         </form>
         <div class="text-center mt-3">
-            <a href="my_bill.php" class="text-decoration-none text-muted small"><i class="fas fa-arrow-left"></i> กลับไปหน้าลูกบ้าน</a>
+            <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/my_bill.php" class="text-decoration-none text-muted small"><i class="fas fa-arrow-left"></i> กลับไปหน้าลูกบ้าน</a>
         </div>
     </div>
 </div>
@@ -61,11 +62,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    window.PROJECT_ROOT = '<?php echo $PROJECT_ROOT; ?>';
 $(document).ready(function() {
     $('#loginForm').submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: '../backend/auth_handler.php',
+            url: window.PROJECT_ROOT + '/backend/auth_handler.php',
             method: 'POST',
             data: $(this).serialize(),
             dataType: 'json',

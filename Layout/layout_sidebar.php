@@ -9,42 +9,42 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
     <div class="list-group list-group-flush mt-2">
         
-        <a href="index.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/index.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">
             <i class="fas fa-chart-pie me-2 fixed-width-icon"></i> แดชบอร์ด
         </a>
         
         <small class="text-muted ms-4 mt-3 mb-1 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">ข้อมูลพื้นฐาน</small>
         
-        <a href="house_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'house_info.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/house_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'house_info.php') ? 'active' : ''; ?>">
             <i class="fas fa-home me-2"></i> ข้อมูลบ้านพัก
         </a>
-        <a href="person_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'person_info.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/person_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'person_info.php') ? 'active' : ''; ?>">
             <i class="fas fa-users me-2"></i> ข้อมูลครู/บุคลากร
         </a>
-        <a href="meter_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'meter_info.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/meter_info.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'meter_info.php') ? 'active' : ''; ?>">
             <i class="fas fa-tachometer-alt me-2"></i> ข้อมูลมิเตอร์
         </a>
-        <a href="residency_history.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'residency_history.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/residency_history.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'residency_history.php') ? 'active' : ''; ?>">
             <i class="fas fa-history me-2"></i> ประวัติการเข้าพัก
         </a>
         
         <small class="text-muted ms-4 mt-3 mb-1 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">การจดบันทึก</small>
         
-        <a href="electric_recording.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'electric_recording.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/electric_recording.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'electric_recording.php') ? 'active' : ''; ?>">
             <i class="fas fa-bolt me-2"></i> จดค่าไฟฟ้า
         </a>
-        <a href="water_recording.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'water_recording.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/water_recording.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'water_recording.php') ? 'active' : ''; ?>">
             <i class="fas fa-tint me-2"></i> จดค่าน้ำประปา
         </a>
         
         <small class="text-muted ms-4 mt-3 mb-1 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">รายงาน</small>
         
-        <a href="billing_report.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'billing_report.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/billing_report.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'billing_report.php') ? 'active' : ''; ?>">
             <i class="fas fa-file-invoice-dollar me-2"></i> รายงานค่าใช้จ่าย
         </a>
 
         <small class="text-muted ms-4 mt-3 mb-1 text-uppercase" style="font-size: 0.7rem;">การตั้งค่า</small>
-        <a href="rate_setting.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'rate_setting.php') ? 'active' : ''; ?>">
+        <a href="<?php echo dirname($_SERVER['SCRIPT_NAME']); ?>/rate_setting.php" class="list-group-item list-group-item-action <?php echo ($current_page == 'rate_setting.php') ? 'active' : ''; ?>">
             <i class="fas fa-tags me-2"></i> กำหนดราคาต่อหน่วย
         </a>
     </div>
@@ -88,13 +88,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <script>
         function logout() {
             $.ajax({
-                url: '../backend/auth_handler.php',
+                url: window.PROJECT_ROOT + '/backend/auth_handler.php',
                 method: 'POST',
                 data: { action: 'logout' },
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        window.location.href = 'login.php';
+                        window.location.href = window.PROJECT_ROOT + '/Frontend/login.php';
                     }
                 }
             });

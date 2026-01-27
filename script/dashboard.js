@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 function loadDashboardData() {
     $.ajax({
-        url: '../backend/dashboard_handler.php',
+        url: window.PROJECT_ROOT + '/backend/dashboard_handler.php',
         method: 'POST',
         data: { action: 'get_stats' },
         dataType: 'json',
