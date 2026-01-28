@@ -1,3 +1,5 @@
+window.PROJECT_ROOT = 'https://residential.paiboondev.com';
+
 $(document).ready(function() {
     loadHouses();
 });
