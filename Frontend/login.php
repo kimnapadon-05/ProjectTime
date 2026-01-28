@@ -67,7 +67,7 @@ $(document).ready(function() {
     $('#loginForm').submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: window.PROJECT_ROOT + '/backend/auth_handler.php',
+            url: '/backend/auth_handler.php',
             method: 'POST',
             data: $(this).serialize(),
             dataType: 'json',

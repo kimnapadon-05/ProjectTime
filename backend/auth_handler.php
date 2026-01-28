@@ -1,8 +1,36 @@
 <?php
-require_once __DIR__ . '/../Database/config.php';
-require_once __DIR__ . '/security_helper.php';
+// Temporary: enable error logging to help debug deployment issues on Plesk
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
+ini_set('error_log', __DIR__ . '/auth_error.log');
+
+// Validate required files exist before including (clearer diagnostics on Plesk)
+$configPath = __DIR__ . '/../Database/config.php';
+$securityPath = __DIR__ . '/security_helper.php';
+if (!file_exists($configPath)) {
+    error_log("Missing file: $configPath");
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'Server misconfiguration: missing config file']);
+    exit;
+}
+if (!file_exists($securityPath)) {
+    error_log("Missing file: $securityPath");
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'Server misconfiguration: missing security helper']);
+    exit;
+}
+
+require_once $configPath;
+require_once $securityPath;
 
 header('Content-Type: application/json');
+
+// Temporary: allow GET to verify the script is reachable from the web (debug only)
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    echo json_encode(['status' => 'ok', 'message' => 'auth_handler reachable']);
+    exit;
+}
 
 // ตั้งค่า Timezone ให้ตรงกันทั้ง PHP และ MySQL (สำคัญมากสำหรับระบบล็อคเวลา)
 date_default_timezone_set('Asia/Bangkok');
