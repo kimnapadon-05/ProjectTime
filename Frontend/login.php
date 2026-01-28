@@ -1,5 +1,14 @@
-<?php require_once __DIR__ . '/../backend/security_helper.php'; ?>
-<?php $PROJECT_ROOT = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/'); ?>
+<?php 
+require_once __DIR__ . '/../backend/security_helper.php'; 
+$PROJECT_ROOT = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/'); 
+session_start();
+require_once __DIR__ . '/../backend/security_helper.php';
+// Generate CSRF token if not exists
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -67,7 +76,7 @@ $(document).ready(function() {
     $('#loginForm').submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: '/backend/auth_handler.php',
+            url: window.PROJECT_ROOT + '/backend/auth_handler.php',
             method: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
